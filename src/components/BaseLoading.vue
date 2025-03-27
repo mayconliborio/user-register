@@ -8,7 +8,7 @@ defineProps({
     type: String,
     default: 'xs',
     validator(value) {
-      return ['xs', 'sm', 'md', 'lg', 'xl'].includes(value)
+      return ['xs', 'sm', 'md', 'lg', 'xl', '5xl'].includes(value)
     }
   }
 })
@@ -19,6 +19,7 @@ const sizes = {
   md: 'w-6 h-6',
   lg: 'w-7 h-7',
   xl: 'w-8 h-8',
+  '5xl': 'w-12 h-12'
 }
 </script>
 
@@ -26,7 +27,7 @@ const sizes = {
 @import '@assets/styles/_theme.scss';
 
 .loading-spinner {
-  border-color:  $button-disabled-text-color;
+  border-color: $button-disabled-text-color;
   border-top-color: $button-enabled-text-color;
   animation: spin 0.8s linear infinite;
 }

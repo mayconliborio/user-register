@@ -8,13 +8,17 @@ const index = [
             {
                 path: 'user-list',
                 name: 'user-list',
-                title: 'Usuários',
+                meta: {
+                    title: 'Usuários',
+                },
                 component: async () => await import('@views/UserListView.vue')
             },
             {
                 path: 'user-register',
                 name: 'user-register',
-                title: 'Usuários - Cadastro',
+                meta: {
+                    title: 'Usuários - Cadastro',
+                },
                 component: async () => await import('@views/UserRegisterView.vue')
             }
         ]
@@ -29,6 +33,10 @@ const router = new createRouter({
     history: createWebHistory(),
     routes: index,
     linkExactActiveClass: 'active',
+});
+
+router.beforeEach((to) => {
+    document.title = to.meta.title || 'Usuários';
 });
 
 export default router;

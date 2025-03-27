@@ -1,13 +1,13 @@
 <template>
   <button
       :disabled="buttonDisabled"
-      class="flex items-center justify-center px-4 py-2 btn rounded-full"
+      class="flex items-center justify-center text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2 btn rounded-full"
       :class="{ 'btn-enabled': !buttonDisabled, 'btn-disabled': buttonDisabled }"
       @click="handleClick"
   >
 
-    <span v-if="!loading"><slot /></span>
-    <BaseLoading v-else />
+    <span v-if="!loading"><slot/></span>
+    <BaseLoading v-else/>
   </button>
 </template>
 
@@ -18,7 +18,7 @@ import {computed} from "vue";
 const props = defineProps({
   loading: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   disabled: {
     type: Boolean,

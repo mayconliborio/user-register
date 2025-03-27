@@ -1,6 +1,9 @@
 $primary-color: #00c8b3;
 $secondary-text-color: #333333;
 
+$body-bg-color: #f8f9fa;
+$white-color: #ffffff;
+
 $input-default-border: #efeeed;
 $input-placeholder-border: #efeeed;
 $input-text: #333333;
@@ -8,7 +11,7 @@ $input-focus-border: #333333;
 
 $input-invalid-color: #eb4a46;
 
-$button-enabled-text-color: #ffffff;
+$button-enabled-text-color: $white-color;
 $button-enabled-bg-color: #00c8b3;
 $button-disabled-text-color: #dddcdc;
 $button-disabled-bg-color: #f6f6f6;
