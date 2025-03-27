@@ -1,16 +1,3 @@
-<template>
-  <button
-      :disabled="buttonDisabled"
-      class="flex items-center justify-center text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2 btn rounded-full"
-      :class="{ 'btn-enabled': !buttonDisabled, 'btn-disabled': buttonDisabled }"
-      @click="handleClick"
-  >
-
-    <span v-if="!loading"><slot/></span>
-    <BaseLoading v-else/>
-  </button>
-</template>
-
 <script setup>
 import BaseLoading from "@/components/BaseLoading.vue";
 import {computed} from "vue";
@@ -36,6 +23,19 @@ const handleClick = (event) => {
   }
 };
 </script>
+
+<template>
+  <button
+      :disabled="buttonDisabled"
+      class="flex items-center justify-center text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2 btn rounded-full shadow-md"
+      :class="{ 'btn-enabled': !buttonDisabled, 'btn-disabled': buttonDisabled }"
+      @click="handleClick"
+  >
+
+    <span v-if="!loading"><slot/></span>
+    <BaseLoading v-else/>
+  </button>
+</template>
 
 <style scoped lang="scss">
 @import "@assets/styles/_theme.scss";

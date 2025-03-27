@@ -1,7 +1,3 @@
-<template>
-  <div class="loading-spinner border-2 rounded-full" :class="sizes[size]"></div>
-</template>
-
 <script setup>
 defineProps({
   size: {
@@ -22,6 +18,11 @@ const sizes = {
   '5xl': 'w-12 h-12'
 }
 </script>
+
+
+<template>
+  <div class="loading-spinner border-2 rounded-full" :class="sizes[size]"></div>
+</template>
 
 <style scoped lang="scss">
 @import '@assets/styles/_theme.scss';

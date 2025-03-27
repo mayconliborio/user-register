@@ -56,6 +56,12 @@ export const useUsersStore = defineStore('users', () => {
         await loadUsers()
     }
 
+    function registerUser(user) {
+        users.value.push(user)
+
+        saveLocalStorageUsers(users.value)
+    }
+
     function deleteUserByIndex(index) {
         users.value.splice(index, 1)
 
@@ -65,6 +71,6 @@ export const useUsersStore = defineStore('users', () => {
     }
 
     return {
-        users, loading, fetchUsers, deleteUserByIndex, reloadUsers: loadUsers, initialLoading
+        users, loading, fetchUsers, registerUser, deleteUserByIndex, reloadUsers: loadUsers, initialLoading
     }
 })

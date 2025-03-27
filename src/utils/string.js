@@ -82,9 +82,25 @@ const validatePhoneNumber = (number) => {
     return phoneNumber.length === 11 && /^9\d{4}\d{4}$/.test(mainNumber);
 }
 
+const validateEmail = (email) => {
+    if (!email) {
+        return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        return false;
+    }
+
+    return '';
+};
+
+
 export {
     formatCPF,
     formatPhoneNumber,
     validateCPF,
-    validatePhoneNumber
+    validatePhoneNumber,
+    validateEmail
 }

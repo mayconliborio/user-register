@@ -1,22 +1,6 @@
-<template>
-  <div class="flex flex-col gap-0">
-    <label :for="id" class="text-xs">{{ label }}</label>
-    <input
-        class="border-b"
-        :id="id"
-        :type="type"
-        :placeholder="placeholder"
-        v-maska="mask"
-        :class="{ invalid: errorMessage }"
-        v-model="innerValue"
-    />
-    <p v-if="errorMessage" class="error-message text-xs">{{ errorMessage }}</p>
-  </div>
-</template>
-
 <script setup>
-import { ref, watch } from "vue";
-import { vMaska } from "maska/vue"
+import {ref, watch} from "vue";
+import {vMaska} from "maska/vue"
 
 const props = defineProps({
   modelValue: {
@@ -40,16 +24,12 @@ const props = defineProps({
     default: "text",
   },
   mask: {
-    type: String,
+    type: [String, Array],
     default: null,
   },
   validate: {
     type: Function,
     default: null,
-  },
-  attributes: {
-    type: Object,
-    default: () => ({}),
   },
 });
 
@@ -74,6 +54,23 @@ watch(
     }
 );
 </script>
+
+<template>
+  <div class="flex flex-col gap-0">
+    <label :for="id" class="text-xs">{{ label }}</label>
+    <input
+        class="border-b"
+        :id="id"
+        :type="type"
+        :placeholder="placeholder"
+        :data-maska="mask"
+        v-maska="mask"
+        :class="{ invalid: errorMessage }"
+        v-model="innerValue"
+    />
+    <p v-if="errorMessage" class="error-message text-xs">{{ errorMessage }}</p>
+  </div>
+</template>
 
 <style scoped lang="scss">
 @import '@assets/styles/_theme.scss';
