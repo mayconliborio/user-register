@@ -15,4 +15,8 @@ export default defineConfig({
             '@utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
         },
     },
+    test: {
+        globals: true,
+        environment: "jsdom",
+    },
 })
