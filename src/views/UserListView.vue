@@ -46,7 +46,10 @@ const {users, loading, initialLoading} = storeToRefs(usersStore)
             <span>{{ formatPhoneNumber(user.phone) }}</span>
           </div>
 
-          <div class="flex text-xs sm:text-sm cursor-pointer font-medium">
+          <div class="flex text-xs sm:text-sm cursor-pointer font-medium gap-4">
+            <RouterLink class="action-edit" :to="{name: 'user-edit', params: {indexUser: index}}">
+              Editar
+            </RouterLink>
             <span class="action-delete" @click="deleteUserByIndex(index)">Excluir</span>
           </div>
         </div>
@@ -64,6 +67,15 @@ const {users, loading, initialLoading} = storeToRefs(usersStore)
 .card-user {
   background-color: $white-color;
 }
+
+.action-edit {
+  color: $primary-color;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
 
 .action-delete {
   color: $input-invalid-color;

@@ -20,7 +20,18 @@ const index = [
                     title: 'Usuários - Cadastro',
                 },
                 component: async () => await import('@views/UserRegisterView.vue')
-            }
+            },
+            {
+                path: 'user-edit/:indexUser',
+                name: 'user-edit',
+                props: (route) => ({
+                    indexUser: Number(route.params.indexUser),
+                }),
+                meta: {
+                    title: 'Usuários - Cadastro',
+                },
+                component: async () => await import('@views/UserEditView.vue')
+            },
         ]
     },
     {

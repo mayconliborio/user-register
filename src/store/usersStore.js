@@ -70,7 +70,25 @@ export const useUsersStore = defineStore('users', () => {
         useSnackbarStore().displaySnackbar({message: 'Usuário deletado com sucesso!', type: 'success'});
     }
 
+    function getUserByIndex(index) {
+        return users.value[index] || null
+    }
+
+    function editUserByIndex(index, user) {
+        users.value[index] = user
+
+        saveLocalStorageUsers(users.value)
+    }
+
     return {
-        users, loading, fetchUsers, registerUser, deleteUserByIndex, reloadUsers: loadUsers, initialLoading
+        users,
+        loading,
+        initialLoading,
+        fetchUsers,
+        registerUser,
+        deleteUserByIndex,
+        reloadUsers: loadUsers,
+        getUserByIndex,
+        editUserByIndex
     }
 })

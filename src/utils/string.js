@@ -89,11 +89,7 @@ const validateEmail = (email) => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email)) {
-        return false;
-    }
-
-    return '';
+    return emailRegex.test(email);
 };
 
 

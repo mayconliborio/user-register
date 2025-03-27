@@ -1,5 +1,5 @@
 <script setup>
-import {ref, computed} from 'vue';
+import {ref, computed, onMounted} from 'vue';
 import BaseInput from '@components/BaseInput.vue';
 import {validateCPF, validateEmail, validatePhoneNumber} from '@utils/string';
 import {useSnackbarStore} from "@store/snackbarStore.js";
@@ -9,28 +9,38 @@ import {useRouter} from "vue-router";
 
 const userStore = useUsersStore()
 
-const {registerUser} = userStore
+const {registerUser, getUserByIndex, editUserByIndex} = userStore
+
+const props = defineProps({
+  indexUser: {
+    type: [Number, undefined],
+    default: undefined
+  },
+  editing: Boolean,
+})
+
+const userToEdit = ref(props.editing ? getUserByIndex(props.indexUser) : null)
 
 const formData = ref({
   email: {
-    value: '',
-    validator: (value) => validateEmail(value) ? 'E-mail inválido' : '',
+    value: userToEdit.value?.email || '',
+    validator: (value) => validateEmail(value) ? '' : 'E-mail inválido',
     error: '',
   },
   cpf: {
-    value: '',
+    value: userToEdit.value?.cpf || '',
     validator: (value) =>
         validateCPF(value) ? '' : 'CPF inválido',
     error: '',
   },
   name: {
-    value: '',
+    value: userToEdit.value?.name || '',
     validator: (value) =>
         value.trim()?.length >= 3 ? '' : 'Nome deve conter 3 caracteres ou mais',
     error: '',
   },
   phone: {
-    value: '',
+    value: userToEdit.value?.phone || '',
     validator: (value) =>
         validatePhoneNumber(value) ? '' : 'Número de telefone inválido',
     error: '',
@@ -49,6 +59,8 @@ const isFormValid = computed(() => {
 });
 
 const handleSubmit = () => {
+  if (isSubmitting.value) return
+
   if (isFormValid.value) {
     isSubmitting.value = true;
 
@@ -60,9 +72,13 @@ const handleSubmit = () => {
       user.cpf = user.cpf.replace(/\D/g, '');
       user.phone = user.phone.replace(/\D/g, '');
 
-      registerUser(user);
+      if (props.editing) {
+        editUserByIndex(props.indexUser, user)
+      } else {
+        registerUser(user);
+      }
 
-      useSnackbarStore().displaySnackbar({message: 'Usuário registrado com sucesso!', type: 'success'});
+      useSnackbarStore().displaySnackbar({message: 'Usuário alterado com sucesso!', type: 'success'});
 
       router.push({name: 'user-list'})
     }, 1000)
@@ -71,6 +87,13 @@ const handleSubmit = () => {
     useSnackbarStore().displaySnackbar({message: 'Por favor, corrija os erros antes de enviar.', type: 'error'});
   }
 };
+
+onMounted(() => {
+  if (props.editing && !userToEdit.value) {
+    useSnackbarStore().displaySnackbar({message: 'Usuário não encontrado.', type: 'error'});
+    router.push({name: 'user-list'})
+  }
+})
 </script>
 
 <template>
@@ -122,7 +145,7 @@ const handleSubmit = () => {
           class="self-start w-full"
           @click="handleSubmit"
       >
-        Registrar
+        {{ editing ? 'Editar Usuário' : 'Cadastrar Usuário' }}
       </BaseButton>
 
       <RouterLink :to="{name: 'user-list'}" class="text-xs sm:text-md link text-center">Voltar à Lista de Usuários
