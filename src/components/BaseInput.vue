@@ -59,12 +59,12 @@ watch(
   <div class="flex flex-col gap-0">
     <label :for="id" class="text-xs">{{ label }}</label>
     <input
-        class="border-b"
+        class="text-sm sm:text-base border-b"
         :id="id"
         :type="type"
         :placeholder="placeholder"
+        v-maska
         :data-maska="mask"
-        v-maska="mask"
         :class="{ invalid: errorMessage }"
         v-model="innerValue"
     />

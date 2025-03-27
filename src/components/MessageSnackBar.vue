@@ -3,6 +3,7 @@ import {useSnackbarStore} from '@store/snackbarStore.js';
 import {storeToRefs} from "pinia";
 
 const snackbarStore = useSnackbarStore();
+const {killSnackBar} = snackbarStore;
 const {showSnackbar, message, type} = storeToRefs(snackbarStore)
 </script>
 
@@ -10,7 +11,9 @@ const {showSnackbar, message, type} = storeToRefs(snackbarStore)
   <div
       v-if="showSnackbar"
       class="snackbar absolute -top[200px] right-10 w-auto max-w-[500px] p-2.5 rounded-md text-white"
-      :class="type">
+      :class="type"
+      @click="killSnackBar"
+  >
     {{ message }}
   </div>
 </template>

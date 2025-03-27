@@ -1,6 +1,7 @@
 # Cadastro de Usuários
 
-Uma aplicação de registro de usuários desenvolvida com **Vue 3**, **Vue Router**, **Pinia** e **TailwindCSS**, com o objetivo de demonstrar boas práticas no uso dessas tecnologias através de uma interface simples e funcional.
+Uma aplicação de registro de usuários desenvolvida com **Vue 3**, **Vue Router**, **Pinia** e **TailwindCSS**, com o
+objetivo de demonstrar boas práticas no uso dessas tecnologias através de uma interface simples e funcional.
 
 ---
 
@@ -38,6 +39,18 @@ Agora, acesse o projeto no navegador pelo endereço [http://localhost:5173](http
 
 ---
 
+## 🧪 Executando os Testes
+
+Para garantir a qualidade e o bom funcionamento da aplicação, foram implementados testes utilizando o **Vitest**. Siga o
+passo abaixo para executar os testes:
+
+1. Certifique-se de estar no diretório raiz do projeto (`user-register`).
+2. Execute o seguinte comando no seu terminal:
+   ```bash
+   npm run test
+
+---
+
 ## ✨ Solução Utilizada
 
 - **Vue 3**: Framework JavaScript para construção de interfaces de usuário.
@@ -47,7 +60,8 @@ Agora, acesse o projeto no navegador pelo endereço [http://localhost:5173](http
 - **Maska**: Biblioteca para formatação de campos de formulário.
 - Ferramentas auxiliares como **Vite** para build e **Vitest** para testes.
 
-A aplicação permite realizar o cadastro de usuários com validações em campos como **CPF**, **e-mail** e **telefone**, exibindo mensagens amigáveis em caso de erros.
+A aplicação permite realizar o cadastro de usuários com validações em campos como **CPF**, **e-mail** e **telefone**,
+exibindo mensagens amigáveis em caso de erros.
 
 ---
 

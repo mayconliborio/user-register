@@ -30,13 +30,13 @@ export const useUsersStore = defineStore('users', () => {
     const finishLoad = () => setTimeout(() => {
         loading.value = false;
         initialLoading.value = false;
-    }, 800)
+    }, 1000)
 
 
     async function loadUsers() {
         loading.value = true;
 
-        return UserService.getUsers()
+        return await UserService.getUsers()
             .then(response => {
                 users.value = response;
                 saveLocalStorageUsers(users.value)

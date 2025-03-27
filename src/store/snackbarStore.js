@@ -7,14 +7,18 @@ export const useSnackbarStore = defineStore('snackbar', () => {
     const type = ref('success');
     const timeoutId = ref(null);
 
-    function displaySnackbar({message: newMessage, type: newType}) {
-        message.value = newMessage;
-        type.value = newType;
-
+    function killSnackBar() {
         if (timeoutId.value) {
             clearTimeout(timeoutId.value);
             showSnackbar.value = false;
         }
+    }
+
+    function displaySnackbar({message: newMessage, type: newType}) {
+        message.value = newMessage;
+        type.value = newType;
+
+        killSnackBar();
 
         nextTick(() => {
             showSnackbar.value = true;
@@ -30,5 +34,6 @@ export const useSnackbarStore = defineStore('snackbar', () => {
         message,
         type,
         displaySnackbar,
+        killSnackBar,
     };
 });

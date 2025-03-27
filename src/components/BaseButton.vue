@@ -1,6 +1,5 @@
 <script setup>
 import BaseLoading from "@/components/BaseLoading.vue";
-import {computed} from "vue";
 
 const props = defineProps({
   loading: {
@@ -15,8 +14,6 @@ const props = defineProps({
 
 const emit = defineEmits(["click"]);
 
-const buttonDisabled = computed(() => props.disabled || props.loading)
-
 const handleClick = (event) => {
   if (!props.disabled && !props.loading) {
     emit("click", event);
@@ -26,14 +23,14 @@ const handleClick = (event) => {
 
 <template>
   <button
-      :disabled="buttonDisabled"
-      class="flex items-center justify-center text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2 btn rounded-full shadow-md"
-      :class="{ 'btn-enabled': !buttonDisabled, 'btn-disabled': buttonDisabled }"
+      :disabled="disabled"
+      class="flex items-center justify-center text-sm sm:text-base px-3 sm:px-4 min-h-[28px] sm:min-h-[40px] py-1 sm:py-2 btn rounded-full shadow-md"
+      :class="{ 'btn-enabled': !disabled, 'btn-disabled': disabled, 'pointer-events-none': loading }"
       @click="handleClick"
   >
 
     <span v-if="!loading"><slot/></span>
-    <BaseLoading v-else/>
+    <BaseLoading v-else size="md"/>
   </button>
 </template>
 
