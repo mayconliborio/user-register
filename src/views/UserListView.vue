@@ -20,7 +20,7 @@ const {users, loading, initialLoading} = storeToRefs(usersStore)
       </PageHeader>
 
       <div class="flex gap-2 sm:gap-4 max-md:justify-end max-sm:w-full">
-        <BaseButton v-if="(users.length === 0 || loading) && !initialLoading" @click="reloadUsers" :loading="loading">
+        <BaseButton v-if="(users?.length === 0 || loading) && !initialLoading" @click="reloadUsers" :loading="loading">
           Recarregar Usuários
         </BaseButton>
 
