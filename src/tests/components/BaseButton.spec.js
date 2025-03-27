@@ -32,8 +32,8 @@ describe("BaseButton.vue", () => {
 
         // Atualiza a prop 'loading' para true
         await wrapper.setProps({ loading: true });
-        // Verifica que o botão agora está desabilitado
-        expect(wrapper.attributes("disabled")).toBe("");
+        // Verifica que o botão agora está sem ações de clique
+        expect(wrapper.classes("pointer-events-none")).toBe(true);
 
         // Atualiza a prop 'disabled' para true
         await wrapper.setProps({ loading: false, disabled: true });
