@@ -4,6 +4,7 @@ import BaseButton from "@components/BaseButton.vue";
 import {useUsersStore} from "@store/usersStore.js";
 import {storeToRefs} from "pinia";
 import PageHeader from "@components/PageHeader.vue";
+import {formatCPF, formatPhoneNumber} from "../utils/string.js";
 
 const usersStore = useUsersStore()
 const {deleteUserByIndex, reloadUsers} = usersStore
@@ -40,9 +41,9 @@ const {users, loading, initialLoading} = storeToRefs(usersStore)
         <div class="flex items-start justify-between p-6 rounded-lg shadow-lg card-user">
           <div class="flex flex-col gap-1 text-xs sm:text-sm">
             <span class="font-medium text-lg mb-1">{{ user.name }}</span>
-            <span>{{ user.cpf }}</span>
+            <span>{{ formatCPF(user.cpf) }}</span>
             <span>{{ user.email }}</span>
-            <span>{{ user.phone }}</span>
+            <span>{{ formatPhoneNumber(user.phone) }}</span>
           </div>
 
           <div class="flex text-xs sm:text-sm cursor-pointer font-medium">
