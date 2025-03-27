@@ -56,7 +56,7 @@ export const useUsersStore = defineStore('users', () => {
         await loadUsers()
     }
 
-    function registerUser(user) {
+    function createUser(user) {
         users.value.push(user)
 
         saveLocalStorageUsers(users.value)
@@ -85,7 +85,7 @@ export const useUsersStore = defineStore('users', () => {
         loading,
         initialLoading,
         fetchUsers,
-        registerUser,
+        createUser,
         deleteUserByIndex,
         reloadUsers: loadUsers,
         getUserByIndex,

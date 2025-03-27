@@ -17,7 +17,7 @@ const index = [
                 path: 'user-register',
                 name: 'user-register',
                 meta: {
-                    title: 'Usuários - Cadastro',
+                    title: 'Cadastrar Usuário',
                 },
                 component: async () => await import('@views/UserRegisterView.vue')
             },
@@ -28,7 +28,7 @@ const index = [
                     indexUser: Number(route.params.indexUser),
                 }),
                 meta: {
-                    title: 'Usuários - Cadastro',
+                    title: 'Editar Usuário',
                 },
                 component: async () => await import('@views/UserEditView.vue')
             },

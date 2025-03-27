@@ -9,7 +9,7 @@ import {useRouter} from "vue-router";
 
 const userStore = useUsersStore()
 
-const {registerUser, getUserByIndex, editUserByIndex} = userStore
+const {createUser, getUserByIndex, editUserByIndex} = userStore
 
 const props = defineProps({
   indexUser: {
@@ -75,7 +75,7 @@ const handleSubmit = () => {
       if (props.editing) {
         editUserByIndex(props.indexUser, user)
       } else {
-        registerUser(user);
+        createUser(user);
       }
 
       useSnackbarStore().displaySnackbar({message: 'Usuário alterado com sucesso!', type: 'success'});

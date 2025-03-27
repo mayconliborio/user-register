@@ -1,6 +1,6 @@
 # Cadastro de Usuários
 
-Uma aplicação de registro de usuários desenvolvida com **Vue 3**, **Vue Router**, **Pinia** e **TailwindCSS**, com o
+Uma aplicação de cadastro de usuários desenvolvida com **Vue 3**, **Vue Router**, **Pinia** e **TailwindCSS**, com o
 objetivo de demonstrar boas práticas no uso dessas tecnologias através de uma interface simples e funcional.
 
 ---
