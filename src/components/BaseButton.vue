@@ -1,20 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import BaseLoading from "@/components/BaseLoading.vue";
 
-const props = defineProps({
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+interface BaseButtonProps {
+  loading?: boolean;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+}
+
+const props = withDefaults(defineProps<BaseButtonProps>(), {
+  loading: false,
+  disabled: false,
+  type: 'button',
 });
 
-const emit = defineEmits(["click"]);
+const emit = defineEmits<{
+  (e: 'click', event: MouseEvent): void
+}>()
 
-const handleClick = (event) => {
+const handleClick = (event: MouseEvent) => {
   if (!props.disabled && !props.loading) {
     emit("click", event);
   }
@@ -23,13 +26,16 @@ const handleClick = (event) => {
 
 <template>
   <button
+      :type="props.type"
       :disabled="disabled"
       class="flex items-center justify-center text-sm sm:text-base px-3 sm:px-4 min-h-[28px] sm:min-h-[40px] py-1 sm:py-2 btn rounded-full shadow-md"
       :class="{ 'btn-enabled': !disabled, 'btn-disabled': disabled, 'pointer-events-none': loading }"
       @click="handleClick"
   >
+    <span v-if="!loading">
+      <slot/>
+    </span>
 
-    <span v-if="!loading"><slot/></span>
     <BaseLoading v-else size="md"/>
   </button>
 </template>

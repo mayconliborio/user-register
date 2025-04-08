@@ -1,10 +1,10 @@
-<script setup>
-import {useSnackbarStore} from '@store/snackbarStore';
-import {storeToRefs} from "pinia";
+<script setup lang="ts">
+import { useSnackbarStore } from '@store/snackbarStore';
+import { storeToRefs } from 'pinia';
 
 const snackbarStore = useSnackbarStore();
-const {killSnackBar} = snackbarStore;
-const {showSnackbar, message, type} = storeToRefs(snackbarStore)
+const { killSnackBar } = snackbarStore;
+const { showSnackbar, message, type } = storeToRefs(snackbarStore);
 </script>
 
 <template>

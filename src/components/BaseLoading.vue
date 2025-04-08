@@ -1,13 +1,11 @@
-<script setup>
-defineProps({
-  size: {
-    type: String,
-    default: 'xs',
-    validator(value) {
-      return ['xs', 'sm', 'md', 'lg', 'xl', '5xl'].includes(value)
-    }
-  }
-})
+<script setup lang="ts">
+interface BaseLoadingProps {
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '5xl';
+}
+
+withDefaults(defineProps<BaseLoadingProps>(), {
+  size: 'xs',
+});
 
 const sizes = {
   xs: 'w-3 h-3 sm:w-4 sm:h-4',
@@ -18,7 +16,6 @@ const sizes = {
   '5xl': 'w-12 h-12'
 }
 </script>
-
 
 <template>
   <div class="loading-spinner border-2 rounded-full" :class="sizes[size]"></div>

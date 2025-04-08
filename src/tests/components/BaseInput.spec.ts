@@ -30,12 +30,11 @@ describe('BaseInput.vue', () => {
         await input.setValue('João');
 
         // Verifica se o evento update:modelValue é emitido corretamente
-        expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
-        expect(wrapper.emitted('update:modelValue')[0]).toEqual(['João']);
+        expect(wrapper.emitted('update:modelValue')).toEqual([['João']]);
     });
 
     it('displays an error message on validation failure', async () => {
-        const mockValidate = vi.fn((value) => {
+        const mockValidate = vi.fn((value: string) => {
             return value.length < 3 ? 'O nome deve ter pelo menos 3 caracteres' : '';
         });
 
@@ -56,8 +55,8 @@ describe('BaseInput.vue', () => {
         );
 
         // Verifica se o evento input-error é emitido com a mensagem de erro
-        expect(wrapper.emitted('input-error')[0]).toEqual([
-            'O nome deve ter pelo menos 3 caracteres',
+        expect(wrapper.emitted('input-error')).toEqual([
+            ['O nome deve ter pelo menos 3 caracteres'],
         ]);
     });
 
@@ -73,7 +72,7 @@ describe('BaseInput.vue', () => {
         const input = wrapper.find('input');
         await input.setValue('11912345678');
 
-        expect(input.element.value).toBe('(11) 9 1234-5678');
+        expect((input.element as HTMLInputElement).value).toBe('(11) 9 1234-5678');
     });
 
     it('renders the placeholder when provided', () => {
@@ -92,8 +91,8 @@ describe('BaseInput.vue', () => {
     });
 
     it('updates the error when validation changes dynamically', async () => {
-        const mockValidate = vi.fn((value) => {
-            return value.includes('@') ? '' : 'Formato inválido';
+        const mockValidate = vi.fn((value: string | null) => {
+            return value?.includes('@') ? '' : 'Formato inválido';
         });
 
         const wrapper = mount(BaseInput, {

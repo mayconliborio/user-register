@@ -55,9 +55,11 @@ describe("BaseButton.vue", () => {
         // Garante que o evento foi emitido exatamente 1 vez
         expect(emittedEvents).toHaveLength(1);
         // Verifica que o evento recebeu exatamente 1 argumento
-        expect(emittedEvents[0]).toHaveLength(1);
+        if (emittedEvents) {
+            expect(emittedEvents[0]).toHaveLength(1);
+        }
         // Confirma que o argumento emitido é uma instância de Event
-        expect(emittedEvents[0][0]).toBeInstanceOf(Event);
+        expect(emittedEvents![0][0]).toBeInstanceOf(Event);
     });
 
     it("does not emit a click event when disabled or loading", async () => {

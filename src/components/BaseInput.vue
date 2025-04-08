@@ -1,39 +1,29 @@
-<script setup>
+<script setup lang="ts">
 import {ref, watch} from "vue";
 import {vMaska} from "maska/vue"
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: "",
-  },
-  label: {
-    type: String,
-    required: true,
-  },
-  placeholder: {
-    type: String,
-    default: "Preencha o campo...",
-  },
-  id: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    default: "text",
-  },
-  mask: {
-    type: [String, Array],
-    default: null,
-  },
-  validate: {
-    type: Function,
-    default: null,
-  },
+interface InputProps {
+  id: string;
+  modelValue?: string;
+  label: string;
+  placeholder?: string;
+  type?: string;
+  mask?: string | string[] | null;
+  validate?: ((value: string) => string | null) | null;
+}
+
+const props = withDefaults(defineProps<InputProps>(), {
+  modelValue: '',
+  placeholder: "Preencha o campo...",
+  type: "text",
+  mask: null,
+  validate: null,
 });
 
-const emit = defineEmits(["update:modelValue", "input-error"]);
+const emit = defineEmits<{
+  (e: "update:modelValue", value: string): void;
+  (e: "input-error", message: string): void;
+}>();
 
 const innerValue = ref(props.modelValue);
 const errorMessage = ref("");
