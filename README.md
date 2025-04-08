@@ -51,6 +51,23 @@ passo abaixo para executar os testes:
 
 ---
 
+## 🚀 Executando a Build de Produção
+
+Para executar a build de produção e testar o resultado, siga os passos abaixo:
+
+1. Certifique-se de estar no diretório raiz do projeto (`user-register`).
+2. Execute o seguinte comando no seu terminal:  
+   ```bash
+   npm run build
+   ```
+3. Inicie um servidor local para servir os arquivos da pasta dist. Você pode usar o serve do NPM:
+   ```bash
+   npm install -g serve
+   serve dist
+   ```
+4. Acesse o projeto no navegador pelo endereço exibido no terminal (`geralmente http://localhost:3000`).
+---
+
 ## ✨ Solução Utilizada
 
 - **Vue 3**: Framework JavaScript para construção de interfaces de usuário.
