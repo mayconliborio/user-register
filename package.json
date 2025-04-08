@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test:unit": "vitest"
+    "test": "vitest"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.16",

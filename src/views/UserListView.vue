@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import BaseLoading from "@components/BaseLoading.vue";
 import BaseButton from "@components/BaseButton.vue";
 import {useUsersStore} from "@store/usersStore";

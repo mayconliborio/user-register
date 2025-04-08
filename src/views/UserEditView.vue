@@ -1,13 +1,12 @@
-<script setup>
-import PageHeader from "@components/PageHeader.vue";
+<script setup lang="ts">
 import FormUser from "@views/components/FormUser.vue";
+import PageHeader from "@components/PageHeader.vue";
 
-defineProps({
-  indexUser: {
-    type: Number,
-    required: true,
-  },
-});
+interface Props {
+  indexUser: number;
+}
+
+defineProps<Props>();
 </script>
 
 <template>

@@ -1,48 +1,67 @@
-<script setup>
-import {ref, computed, onMounted} from 'vue';
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue';
 import BaseInput from '@components/BaseInput.vue';
-import {validateCPF, validateEmail, validatePhoneNumber} from '@utils/string';
-import {useSnackbarStore} from "@store/snackbarStore";
+import { validateCPF, validateEmail, validatePhoneNumber } from '@utils/string';
+import { useSnackbarStore } from "@store/snackbarStore";
 import BaseButton from "@components/BaseButton.vue";
-import {useUsersStore} from "@store/usersStore";
-import {useRouter} from "vue-router";
+import { useUsersStore } from "@store/usersStore";
+import type {User} from "@/@types/User";
+import { useRouter, RouterLink } from "vue-router";
 
-const userStore = useUsersStore()
+interface FormData {
+  email: {
+    value: string;
+    validator: (value: string) => string;
+    error: string;
+  };
+  cpf: {
+    value: string;
+    validator: (value: string) => string;
+    error: string;
+  };
+  name: {
+    value: string;
+    validator: (value: string) => string;
+    error: string;
+  };
+  phone: {
+    value: string;
+    validator: (value: string) => string;
+    error: string;
+  };
+}
 
-const {createUser, getUserByIndex, editUserByIndex} = userStore
+interface Props {
+  indexUser?: number;
+  editing?: boolean;
+}
 
-const props = defineProps({
-  indexUser: {
-    type: [Number, undefined],
-    default: undefined
-  },
-  editing: Boolean,
-})
+const userStore = useUsersStore();
+const { createUser, getUserByIndex, editUserByIndex } = userStore;
 
-const userToEdit = ref(props.editing ? getUserByIndex(props.indexUser) : null)
+const props = defineProps<Props>();
 
-const formData = ref({
+const userToEdit = ref<User | null>(props.editing && props.indexUser !== undefined ? getUserByIndex(props.indexUser) : null);
+
+const formData = ref<FormData>({
   email: {
     value: userToEdit.value?.email || '',
-    validator: (value) => validateEmail(value) ? '' : 'E-mail inválido',
+    validator: (value: string) => validateEmail(value) ? '' : 'E-mail inválido',
     error: '',
   },
   cpf: {
     value: userToEdit.value?.cpf || '',
-    validator: (value) =>
-        validateCPF(value) ? '' : 'CPF inválido',
+    validator: (value) => validateCPF(value) ? '' : 'CPF inválido',
     error: '',
   },
   name: {
     value: userToEdit.value?.name || '',
-    validator: (value) =>
-        value.trim()?.length >= 3 ? '' : 'Nome deve conter 3 caracteres ou mais',
+    validator: (value) => value.trim()?.length >= 3 ? '' : 'Nome deve conter 3 caracteres ou mais',
     error: '',
   },
   phone: {
     value: userToEdit.value?.phone || '',
-    validator: (value) =>
-        validatePhoneNumber(value) ? '' : 'Número de telefone inválido',
+    validator: (value) => validatePhoneNumber(value) ? '' : 'Número de telefone inválido',
     error: '',
   },
 });
@@ -50,7 +69,7 @@ const formData = ref({
 const isSubmitting = ref(false);
 const router = useRouter();
 
-const handleError = (field, errorMessage) => {
+const handleError = (field: keyof FormData, errorMessage: string) => {
   formData.value[field].error = errorMessage;
 };
 
@@ -59,41 +78,45 @@ const isFormValid = computed(() => {
 });
 
 const handleSubmit = () => {
-  if (isSubmitting.value) return
+  if (isSubmitting.value) return;
 
   if (isFormValid.value) {
     isSubmitting.value = true;
 
     setTimeout(() => {
-      let user = Object.fromEntries(
-          Object.entries(formData.value).map(([key, field]) => [key, field.value])
-      );
+      const formDataValues = formData.value;
+
+      const user: User = {
+        email: formDataValues.email.value,
+        cpf: formDataValues.cpf.value.replace(/\D/g, ''),
+        name: formDataValues.name.value,
+        phone: formDataValues.phone.value.replace(/\D/g, ''),
+      };
 
       user.cpf = user.cpf.replace(/\D/g, '');
       user.phone = user.phone.replace(/\D/g, '');
 
-      if (props.editing) {
-        editUserByIndex(props.indexUser, user)
+      if (props.editing && props.indexUser !== undefined) {
+        editUserByIndex(props.indexUser, user);
       } else {
         createUser(user);
       }
 
-      useSnackbarStore().displaySnackbar({message: 'Usuário alterado com sucesso!', type: 'success'});
+      useSnackbarStore().displaySnackbar({ message: 'Usuário alterado com sucesso!', type: 'success' });
 
-      router.push({name: 'user-list'})
-    }, 1000)
-
+      router.push({ name: 'user-list' });
+    }, 1000);
   } else {
-    useSnackbarStore().displaySnackbar({message: 'Por favor, corrija os erros antes de enviar.', type: 'error'});
+    useSnackbarStore().displaySnackbar({ message: 'Por favor, corrija os erros antes de enviar.', type: 'error' });
   }
 };
 
 onMounted(() => {
-  if (props.editing && !userToEdit.value) {
-    useSnackbarStore().displaySnackbar({message: 'Usuário não encontrado.', type: 'error'});
-    router.push({name: 'user-list'})
+  if (props.editing && props.indexUser !== undefined && !userToEdit.value) {
+    useSnackbarStore().displaySnackbar({ message: 'Usuário não encontrado.', type: 'error' });
+    router.push({ name: 'user-list' });
   }
-})
+});
 </script>
 
 <template>
@@ -138,20 +161,19 @@ onMounted(() => {
     />
 
     <div class="flex flex-col justify-between items-center gap-5 sm:gap-8">
-
       <BaseButton
           :disabled="!isFormValid"
           :loading="isSubmitting"
           class="self-start w-full"
           @click="handleSubmit"
       >
-        {{ editing ? 'Editar Usuário' : 'Cadastrar Usuário' }}
+        {{ props.editing ? 'Editar Usuário' : 'Cadastrar Usuário' }}
       </BaseButton>
 
-      <RouterLink :to="{name: 'user-list'}" class="text-xs sm:text-md link text-center">Voltar à Lista de Usuários
+      <RouterLink :to="{ name: 'user-list' }" class="text-xs sm:text-md link text-center">
+        Voltar à Lista de Usuários
       </RouterLink>
     </div>
-
   </form>
 </template>
 

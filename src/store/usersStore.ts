@@ -2,7 +2,7 @@ import {ref, shallowRef} from 'vue';
 import {useSnackbarStore} from "@store/snackbarStore.ts";
 import {defineStore} from 'pinia';
 import {UserService} from "@/services/UserService.ts";
-import type {User} from "@/services/UserService.ts";
+import type {User} from "@/@types/User";
 
 const localStorageUsersKey = 'users';
 
