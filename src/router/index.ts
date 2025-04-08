@@ -1,9 +1,11 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'; // Import type here
 
-const index = [
+
+const index: RouteRecordRaw[] = [
     {
         path: '/',
-        redirect: {name: 'user-list'},
+        redirect: { name: 'user-list' },
         children: [
             {
                 path: 'user-list',
@@ -11,7 +13,7 @@ const index = [
                 meta: {
                     title: 'Usuários',
                 },
-                component: async () => await import('@views/UserListView.vue')
+                component: async () => await import('@views/UserListView.vue'),
             },
             {
                 path: 'user-register',
@@ -19,7 +21,7 @@ const index = [
                 meta: {
                     title: 'Cadastrar Usuário',
                 },
-                component: async () => await import('@views/UserRegisterView.vue')
+                component: async () => await import('@views/UserRegisterView.vue'),
             },
             {
                 path: 'user-edit/:indexUser',
@@ -30,24 +32,24 @@ const index = [
                 meta: {
                     title: 'Editar Usuário',
                 },
-                component: async () => await import('@views/UserEditView.vue')
+                component: async () => await import('@views/UserEditView.vue'),
             },
-        ]
+        ],
     },
     {
         path: '/:pathMatch(.*)*',
-        redirect: {name: 'user-list'},
-    }
+        redirect: { name: 'user-list' },
+    },
 ];
 
-const router = new createRouter({
+const router = createRouter({
     history: createWebHistory(),
     routes: index,
     linkExactActiveClass: 'active',
 });
 
 router.beforeEach((to) => {
-    document.title = to.meta.title || 'Usuários';
+    document.title = (to.meta.title as string) || 'Usuários';
 });
 
 export default router;

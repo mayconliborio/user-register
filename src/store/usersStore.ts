@@ -1,43 +1,43 @@
 import {ref, shallowRef} from 'vue';
-import {defineStore} from 'pinia';
-import {UserService} from "@/UserService.ts";
 import {useSnackbarStore} from "@store/snackbarStore.ts";
+import {defineStore} from 'pinia';
+import {UserService} from "@/services/UserService.ts";
+import type {User} from "@/services/UserService.ts";
 
 const localStorageUsersKey = 'users';
 
-function geLocalStorageUsers() {
+function geLocalStorageUsers(): User[] | null {
     const storedValue = localStorage.getItem(localStorageUsersKey);
-    let parsedJSON;
-
-    try {
-        parsedJSON = JSON.parse(storedValue)
-    } catch (e) {
-        parsedJSON = null
+    if (!storedValue) {
+        return null;
     }
 
-    return parsedJSON ? parsedJSON : null;
+    try {
+        return JSON.parse(storedValue) as User[] | null;
+    } catch (e) {
+        return null;
+    }
 }
 
-function saveLocalStorageUsers(users) {
+function saveLocalStorageUsers(users: User[]): void {
     localStorage.setItem(localStorageUsersKey, JSON.stringify(users));
 }
 
 export const useUsersStore = defineStore('users', () => {
-    const users = ref(geLocalStorageUsers());
-    const loading = shallowRef(false)
-    const initialLoading = shallowRef(true)
+    const users = ref<User[] | null>(geLocalStorageUsers());
+    const loading = shallowRef<boolean>(false);
+    const initialLoading = shallowRef<boolean>(true);
 
     const finishLoad = () => setTimeout(() => {
         loading.value = false;
         initialLoading.value = false;
-    }, 1000)
+    }, 1000);
 
-
-    async function loadUsers() {
+    async function loadUsers(): Promise<void> {
         loading.value = true;
 
         return await UserService.getUsers()
-            .then(response => {
+            .then((response: User[]) => {
                 users.value = response;
                 saveLocalStorageUsers(users.value)
             }).finally(() => {
@@ -45,39 +45,41 @@ export const useUsersStore = defineStore('users', () => {
             })
     }
 
-    async function fetchUsers() {
+    async function fetchUsers(): Promise<void> {
         loading.value = true;
 
         if (users.value) {
-            finishLoad()
-            return
+            finishLoad();
+            return;
         }
 
-        await loadUsers()
+        await loadUsers();
     }
 
-    function createUser(user) {
-        users.value.push(user)
-
-        saveLocalStorageUsers(users.value)
+    function createUser(user: User): void {
+        if (users.value) {
+            users.value.push(user);
+            saveLocalStorageUsers(users.value);
+        }
     }
 
-    function deleteUserByIndex(index) {
-        users.value.splice(index, 1)
-
-        saveLocalStorageUsers(users.value)
-
-        useSnackbarStore().displaySnackbar({message: 'Usuário deletado com sucesso!', type: 'success'});
+    function deleteUserByIndex(index: number): void {
+        if (users.value) {
+            users.value.splice(index, 1);
+            saveLocalStorageUsers(users.value);
+            useSnackbarStore().displaySnackbar({message: 'Usuário deletado com sucesso!', type: 'success'});
+        }
     }
 
-    function getUserByIndex(index) {
-        return users.value[index] || null
+    function getUserByIndex(index: number): User | null {
+        return users.value ? users.value[index] || null : null;
     }
 
-    function editUserByIndex(index, user) {
-        users.value[index] = user
-
-        saveLocalStorageUsers(users.value)
+    function editUserByIndex(index: number, user: User): void {
+        if (users.value) {
+            users.value[index] = user;
+            saveLocalStorageUsers(users.value);
+        }
     }
 
     return {
@@ -89,6 +91,6 @@ export const useUsersStore = defineStore('users', () => {
         deleteUserByIndex,
         reloadUsers: loadUsers,
         getUserByIndex,
-        editUserByIndex
-    }
-})
+        editUserByIndex,
+    };
+});

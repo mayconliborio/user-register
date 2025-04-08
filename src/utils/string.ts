@@ -1,12 +1,12 @@
 import {brazilAreaCodes} from "@assets/js/brazilDDDs.ts";
 
-const formatCPF = (cpf) => {
+const formatCPF = (cpf: string) => {
     const digits = cpf.replace(/\D/g, '');
 
     return digits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 };
 
-const validateCPF = (number) => {
+const validateCPF = (number: string) => {
     const cpf = number.replace(/[^\d]/g, '');
 
     // O CPF precisa ter 11 números
@@ -49,7 +49,7 @@ const validateCPF = (number) => {
     return true;
 }
 
-const formatPhoneNumber = (phoneNumber) => {
+const formatPhoneNumber = (phoneNumber: string) => {
     const digits = phoneNumber.replace(/\D/g, '');
 
     if (digits.length === 10) {
@@ -61,7 +61,7 @@ const formatPhoneNumber = (phoneNumber) => {
     return phoneNumber;
 };
 
-const validatePhoneNumber = (number) => {
+const validatePhoneNumber = (number: string) => {
     const phoneNumber = number.replace(/\D/g, '');
 
     if (phoneNumber.length < 10 || phoneNumber.length > 11) {
@@ -82,7 +82,7 @@ const validatePhoneNumber = (number) => {
     return phoneNumber.length === 11 && /^9\d{4}\d{4}$/.test(mainNumber);
 }
 
-const validateEmail = (email) => {
+const validateEmail = (email: string) => {
     if (!email) {
         return false;
     }
@@ -91,7 +91,6 @@ const validateEmail = (email) => {
 
     return emailRegex.test(email);
 };
-
 
 export {
     formatCPF,
