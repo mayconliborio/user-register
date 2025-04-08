@@ -22,7 +22,7 @@ const sizes = {
 </template>
 
 <style scoped lang="scss">
-@import '@assets/styles/_theme.scss';
+@use '@assets/styles/_theme.scss' as *;
 
 .loading-spinner {
   border-color: $button-disabled-text-color;

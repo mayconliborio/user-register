@@ -63,7 +63,7 @@ watch(
 </template>
 
 <style scoped lang="scss">
-@import '@assets/styles/_theme.scss';
+@use '@assets/styles/_theme.scss' as *;
 
 input {
   transition: border-color 0.3s ease;

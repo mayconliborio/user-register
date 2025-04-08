@@ -20,7 +20,7 @@ defineProps<Props>();
 </template>
 
 <style scoped lang="scss">
-@import '@assets/styles/_theme.scss';
+@use '@assets/styles/_theme.scss' as *;
 
 .view-form {
   background-color: $white-color;

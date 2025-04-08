@@ -178,7 +178,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@assets/styles/_theme.scss';
+@use '@assets/styles/_theme.scss' as *;
 
 .link {
   color: $primary-color;

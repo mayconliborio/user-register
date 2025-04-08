@@ -62,7 +62,7 @@ const {users, loading, initialLoading} = storeToRefs(usersStore)
 </template>
 
 <style scoped lang="scss">
-@import '@assets/styles/_theme.scss';
+@use '@assets/styles/_theme.scss' as *;
 
 .card-user {
   background-color: $white-color;

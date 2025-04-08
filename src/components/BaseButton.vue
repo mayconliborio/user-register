@@ -41,7 +41,7 @@ const handleClick = (event: MouseEvent) => {
 </template>
 
 <style scoped lang="scss">
-@import "@assets/styles/_theme.scss";
+@use '@assets/styles/_theme.scss' as *;
 
 .btn {
   transition: all 0.3s ease-in-out;
