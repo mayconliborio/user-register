@@ -1,10 +1,10 @@
 <script setup>
 import BaseLoading from "@components/BaseLoading.vue";
 import BaseButton from "@components/BaseButton.vue";
-import {useUsersStore} from "@store/usersStore.js";
+import {useUsersStore} from "@store/usersStore";
 import {storeToRefs} from "pinia";
 import PageHeader from "@components/PageHeader.vue";
-import {formatCPF, formatPhoneNumber} from "../utils/string.js";
+import {formatCPF, formatPhoneNumber} from "../utils/string";
 
 const usersStore = useUsersStore()
 const {deleteUserByIndex, reloadUsers} = usersStore

@@ -2,9 +2,9 @@
 import {ref, computed, onMounted} from 'vue';
 import BaseInput from '@components/BaseInput.vue';
 import {validateCPF, validateEmail, validatePhoneNumber} from '@utils/string';
-import {useSnackbarStore} from "@store/snackbarStore.js";
+import {useSnackbarStore} from "@store/snackbarStore";
 import BaseButton from "@components/BaseButton.vue";
-import {useUsersStore} from "@store/usersStore.js";
+import {useUsersStore} from "@store/usersStore";
 import {useRouter} from "vue-router";
 
 const userStore = useUsersStore()

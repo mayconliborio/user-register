@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import MessageSnackBar from "@components/MessageSnackBar.vue";
 import {onMounted} from "vue";
-import {useUsersStore} from "@store/usersStore.js";
+import {useUsersStore} from "@store/usersStore";
 
 const usersStore = useUsersStore()
 

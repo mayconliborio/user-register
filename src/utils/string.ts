@@ -1,4 +1,4 @@
-import {brazilAreaCodes} from "@assets/js/brazilDDDs.js";
+import {brazilAreaCodes} from "@assets/js/brazilDDDs.ts";
 
 const formatCPF = (cpf) => {
     const digits = cpf.replace(/\D/g, '');

@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test:unit": "vitest"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.16",
@@ -18,9 +18,12 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@types/node": "^22.14.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.7.0",
     "jsdom": "^26.0.0",
+    "typescript": "^5.8.3",
     "vite": "^6.2.0",
     "vitest": "^3.0.9"
   }

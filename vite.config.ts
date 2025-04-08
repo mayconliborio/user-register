@@ -14,6 +14,7 @@ export default defineConfig({
             '@store': fileURLToPath(new URL('./src/store', import.meta.url)),
             '@utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
         },
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
     },
     test: {
         globals: true,

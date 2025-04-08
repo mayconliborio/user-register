@@ -1,5 +1,5 @@
 <script setup>
-import {useSnackbarStore} from '@store/snackbarStore.js';
+import {useSnackbarStore} from '@store/snackbarStore';
 import {storeToRefs} from "pinia";
 
 const snackbarStore = useSnackbarStore();
