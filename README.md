@@ -1,6 +1,6 @@
 # Cadastro de Usuários
 
-Uma aplicação de cadastro de usuários desenvolvida com **Vue 3**, **Vue Router**, **Pinia** e **TailwindCSS**, com o
+Uma aplicação de cadastro de usuários desenvolvida com **Vue 3**, **TypeScript**, **Vue Router**, **Pinia** e **TailwindCSS**, com o
 objetivo de demonstrar boas práticas no uso dessas tecnologias através de uma interface simples e funcional.
 
 ---
@@ -71,6 +71,7 @@ Para executar a build de produção e testar o resultado, siga os passos abaixo:
 ## ✨ Solução Utilizada
 
 - **Vue 3**: Framework JavaScript para construção de interfaces de usuário.
+- **TypeScript**: Para aumentar a robustez e segurança do código. Permite definir tipos para variáveis, funções e componentes, facilitando a detecção de erros durante o desenvolvimento e melhorando a manutenção do projeto.
 - **Vue Router**: Gerenciador de rotas para navegação entre as páginas.
 - **Pinia**: Biblioteca para gerenciar estados globais de forma simples e eficiente.
 - **TailwindCSS**: Framework CSS para estilização e layout responsivo.
